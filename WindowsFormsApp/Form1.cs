@@ -16,25 +16,27 @@ namespace WindowsFormsApp
         public Form1()
         {
             InitializeComponent();
-            Load += Form1_Load;
-            //CreateMyPanel();
+            Load += Form1_Load; // Form 실행 시 기본 적으로 실행될  내용 호출
         }
 
         private Button btn;
+        private Label lb;
+
         private void Form1_Load(object sender, EventArgs e)
         {
-            //객체를 넣는방법
+            // *가상 데이터 생성
             ArrayList arrList = new ArrayList();  //여러개 삽입가능 행추가가능.
             arrList.Add(new Item("button",30,30,"btn_1"));   //object 형식은 무엇을 넣어도 상관없다.
             arrList.Add(new Item("label", 30, 110, "lb_1"));
             arrList.Add(new Item("button",30, 190, "btn_2"));
 
-            for(int i = 0; i<arrList.Count; i++)
+            for(int i = 0; i<arrList.Count; i++)    //가상 데이터를 이용한 화면 구성하기
             {
-               Control_create((Item)arrList[i]);
+                Control ctr =  Control_create((Item)arrList[i]);    //구성될 각 화면 내용 받아오기
+                Controls.Add(ctr);  //받아온 Control 정보를 이용하여 화면 구성하기
             }
 
-            /* 위에 나열한것과 동일한 방법 스트링을 넣은 방법
+            /* 1차원 배열로 화면 구성하기
             string[] ctrList = { "button", "label", "button" };
 
             for (int i = 0; i < ctrList.Length; i++) //버튼 3개 반복
@@ -51,33 +53,36 @@ namespace WindowsFormsApp
             */
 
         }
-        private void Control_create(Item item)
+        private Control Control_create(Item item)
         {
-            Control ctr = new Control();
+            Control ctr = new Control();    //리턴 객체 만들기
             
             //button or label 불러옴
             switch (item.getType())
             {
-                case "button":
+                case "button":  //button 부분 정의 하기
                     Button btn = new Button();
                     btn.DialogResult = DialogResult.OK;
                     btn.Cursor = Cursors.Hand;
                     btn.Click += btn_Click;
-                    ctr = btn;
+                    ctr = btn;  //button 객체를 리턴 객체에 변경하기
                     break;
                 case "label":
-                    ctr = new Label();
+                    Label lb = new Label();
+                    ctr = lb;   //label 객체를 리턴 객체에 변경하기
                     break;
                 default:
                     break;
             }
+            //리턴 객체에 공동으로 적용할 속성 정의하기
             ctr.Name = item.getTxt();
             ctr.Text = item.getTxt();
             ctr.Size = new Size(100, 50); 
             ctr.Location = new Point(item.getX(), item.getY());
-            Controls.Add(ctr);
+
+            return ctr; //정의 한 Control 보내기
         }
-        private Button btn_create(int i)
+        private Button btn_create(int i)    //button 객체 정의하기
         {
             //button 클래스의 생성자 생성
             btn = new Button();
@@ -94,8 +99,8 @@ namespace WindowsFormsApp
             return btn;
         }
 
-        private Label lb;
-        private Label lb_create(int i)
+       
+        private Label lb_create(int i)  //lable 객체 정의하기
         {
             lb = new Label();
             lb.Name = string.Format("lb_ : {0}", (i + 1));
@@ -139,6 +144,7 @@ namespace WindowsFormsApp
                 //panel1.Click += ;
             }
         }
+
         private void btn_Click(object o, EventArgs args)
         {
             //string names = "";
@@ -167,7 +173,7 @@ namespace WindowsFormsApp
         }
     }
 
-    public class Item
+    public class Item   //Control 객체 생성 시 필요한 속성 정보 담을 객체 생성
     {
         private string type; //button, label
         private int X, Y;
