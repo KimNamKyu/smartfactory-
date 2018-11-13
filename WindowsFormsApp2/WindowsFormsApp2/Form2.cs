@@ -43,11 +43,12 @@ namespace WindowsFormsApp2
         {
             btn = (Button)o;
             //MessageBox.Show(btn.Name);
-            if (btn.Name == "btn_2") MyTabs();
-            else Dispose();
-            
+            foreach(Control ct in Controls)
+            {
+                if (btn.Name == "btn_2") MyTabs();
+            }
 
-
+            //btn.Name = (btn.Name == "btn2" ? tabPage2 : );
         }
 
         private void CrateMyPanel()
@@ -98,6 +99,8 @@ namespace WindowsFormsApp2
         private TabPage tabPage2;
         private TabPage tabPage3;
         private ListView listView1;
+        private ListView listView2;
+        private CheckBox checkBox1;
         private void MyTabs()
         {
             tabControl1 = new TabControl();
@@ -118,7 +121,12 @@ namespace WindowsFormsApp2
             tabPage3.Text = "파일 강제삭제";
 
             ListPrint();
+            UserDelete();
+            
             tabPage1.Controls.Add(listView1);
+            tabPage2.Controls.Add(checkBox1);
+            LIstPrint2();
+            tabPage3.Controls.Add(listView2);
             Controls.AddRange(new Control[] { tabControl1 });
         }       
         
@@ -156,6 +164,51 @@ namespace WindowsFormsApp2
 
             listView1.Items.AddRange(new ListViewItem[] { item1, item2, item3 });
             Controls.Add(listView1);
+        }
+
+        private void UserDelete()
+        {
+            checkBox1 = new CheckBox();
+            
+            checkBox1.Appearance = Appearance.Button;
+            checkBox1.AutoCheck = false;
+            checkBox1.Location = new Point(40,40);
+            checkBox1.Size = new Size(505, 250);
+
+            if (!checkBox1.ThreeState)
+            {
+                checkBox1.ThreeState = true;
+                checkBox1.CheckAlign = ContentAlignment.MiddleCenter;
+            }
+            else
+            {
+                checkBox1.ThreeState = false;
+                checkBox1.CheckAlign = ContentAlignment.MiddleCenter;
+            }
+            Controls.Add(checkBox1);
+        }
+
+        private void LIstPrint2()
+        {
+            listView2 = new ListView();
+            listView2.View = View.Details;
+            listView2.CheckBoxes = true;
+            listView2.GridLines = true;
+            listView2.Location = new Point(40, 40);
+            listView2.Size = new Size(505, 250);
+
+            listView2.Columns.Add(" ", 25);
+            listView2.Columns.Add("파일명", 480);
+            listView2.BackColor = Color.Gainsboro;
+            listView2.ForeColor = Color.Black;
+
+            ListViewItem item1 = new ListViewItem(" ",100);
+            item1.SubItems.Add("WindowsApp.exe");
+            ListViewItem item2 = new ListViewItem(" ", 100);
+            item2.SubItems.Add("WindowsApp2.exe");
+
+            listView2.Items.AddRange(new ListViewItem[] { item1,item2 });
+            Controls.Add(listView2);
         }
     }
 }
