@@ -139,10 +139,10 @@ namespace WindowsFormsApp2
             listView1.Location = new Point(40, 40);
             listView1.Size = new Size(505, 250);
 
-            listView1.Columns.Add("", 25);
-            listView1.Columns.Add("프로그램명", 180);
-            listView1.Columns.Add("제작사", 200);
-            listView1.Columns.Add("설치일", 100);
+            listView1.Columns.Add("", 25,HorizontalAlignment.Center);
+            listView1.Columns.Add("프로그램명", 180, HorizontalAlignment.Center);
+            listView1.Columns.Add("제작사", 200, HorizontalAlignment.Center);
+            listView1.Columns.Add("설치일", 100,HorizontalAlignment.Center);
             listView1.BackColor = Color.Gainsboro;
             listView1.ForeColor = Color.Black;
 
@@ -163,31 +163,24 @@ namespace WindowsFormsApp2
 
 
             listView1.Items.AddRange(new ListViewItem[] { item1, item2, item3 });
-            Controls.Add(listView1);
+            
         }
 
         private void UserDelete()
         {
-            checkBox1 = new CheckBox();
-            
-            checkBox1.Appearance = Appearance.Button;
-            checkBox1.AutoCheck = false;
-            checkBox1.Location = new Point(40,40);
-            checkBox1.Size = new Size(505, 250);
-
-            if (!checkBox1.ThreeState)
+            for(int i = 0; i<5; i++)
             {
-                checkBox1.ThreeState = true;
-                checkBox1.CheckAlign = ContentAlignment.MiddleCenter;
+                checkBox1 = new CheckBox();
+                checkBox1.AutoSize = true;
+                checkBox1.Location = new Point(160, (20*i)+60);
+                checkBox1.Name = "checkBox1";
+                checkBox1.Size = new Size(86, 16);
+                checkBox1.TabIndex = 0;
+                checkBox1.Text = string.Format("목록 삭제",(i+1));
+                checkBox1.UseVisualStyleBackColor = true;
+                tabPage2.Controls.Add(checkBox1);
             }
-            else
-            {
-                checkBox1.ThreeState = false;
-                checkBox1.CheckAlign = ContentAlignment.MiddleCenter;
-            }
-            Controls.Add(checkBox1);
         }
-
         private void LIstPrint2()
         {
             listView2 = new ListView();
@@ -208,7 +201,7 @@ namespace WindowsFormsApp2
             item2.SubItems.Add("WindowsApp2.exe");
 
             listView2.Items.AddRange(new ListViewItem[] { item1,item2 });
-            Controls.Add(listView2);
+            
         }
     }
 }
