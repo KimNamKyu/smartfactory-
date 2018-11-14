@@ -12,9 +12,7 @@ namespace WindowsFormsApp
         Form form;
         string name, text;
         int sX, sY, pX, pY;
-
-
-
+        
         public btnobject(Form form, string name, string text, int sX, int sY, int pX, int pY, EventHandler eh)
         {
             this.form = form;

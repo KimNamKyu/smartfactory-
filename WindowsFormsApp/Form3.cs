@@ -24,8 +24,7 @@ namespace WindowsFormsApp
             //가상데이터 생성 > 나중에 DB에서 가져오면 됨.
             ArrayList col_list = new ArrayList();
             ArrayList item_list = new ArrayList();
-
-            //헤더 데이터 생성
+           
             col_list.Add(new String[] { "Colum1","100" ,"L"});
             col_list.Add(new String[] { "Colum2" ,"120","C"});
             col_list.Add(new String[] { "Colum3" ,"140","R"});
