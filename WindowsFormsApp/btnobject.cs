@@ -13,7 +13,9 @@ namespace WindowsFormsApp
         string name, text;
         int sX, sY, pX, pY;
 
-        public btnobject(Form form, string name, string text, int sX, int sY, int pX, int pY)
+
+
+        public btnobject(Form form, string name, string text, int sX, int sY, int pX, int pY, EventHandler eh)
         {
             this.form = form;
             this.name = name;
@@ -22,8 +24,10 @@ namespace WindowsFormsApp
             this.sY = sY;
             this.pX = pX;
             this.pY = pY;
+            this.eh = eh; //이벤트 헨들러 받기
         }
         //속성으로 하기위해
+        public EventHandler eh; //객체!  공유해서 사용
         public Form Form
         {
             get

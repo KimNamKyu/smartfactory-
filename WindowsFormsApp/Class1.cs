@@ -20,6 +20,7 @@ namespace WindowsFormsApp
             btn.Size = new Size(bb.SX, bb.SY);  
             btn.Location = new Point(bb.PX, bb.PY); 
             btn.Cursor = Cursors.Hand;
+            btn.Click += bb.eh;
             bb.Form.Controls.Add(btn);
         }
 

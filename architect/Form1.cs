@@ -40,7 +40,7 @@ namespace architect
             panel3.BackColor = Color.Aqua;
 
             tabControl1 = MyTabs();
-            panel3.Controls.AddRange(new Control[] { tabControl1 });
+            
             Controls.Add(panel3);
         }
         private TabControl MyTabs()
@@ -64,7 +64,7 @@ namespace architect
             tabPage1.Controls.Add(listView1);
             tabPage2.Controls.Add(checkBox1);
             tabPage3.Controls.Add(listView2);
-
+            panel3.Controls.AddRange(new Control[] { tabControl1 });
             return tabControl1;
         }
 

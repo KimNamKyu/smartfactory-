@@ -30,8 +30,8 @@ namespace WindowsFormsApp
             //c1.btn(this, "btn_1", "버튼1", 100, 50, 30, 30);
             //c1.btn(this, "btn_1", "버튼1", 100, 50, 30, (30 + 30 + 50));
             ArrayList arr = new ArrayList();
-            arr.Add(new btnobject(this, "btn_1", "버튼1", 100, 50, 30, 30));
-            arr.Add(new btnobject(this, "btn_1", "버튼1", 100, 50, 30, (30 + 30 + 50)));
+            arr.Add(new btnobject(this, "btn_1", "버튼1", 100, 50, 30, 30, btn1_Click));
+            arr.Add(new btnobject(this, "btn_1", "버튼1", 100, 50, 30, (30 + 30 + 50),btn2_Click));
             arr.Add(new lbobject(this, "lb", "라벨1", 100, 50, (30+30+100), 30));
 
             for (int i = 0; i<arr.Count; i++)
@@ -46,6 +46,15 @@ namespace WindowsFormsApp
                     c1.lb((lbobject)arr[i]);
                 }
             }
+        }
+        //버튼이벤트
+        private void btn1_Click(object o, EventArgs args)
+        {
+            MessageBox.Show("btn1 Open");
+        }
+        private void btn2_Click(object o, EventArgs args)
+        {
+            MessageBox.Show("btn2 Open");
         }
     }
 }
