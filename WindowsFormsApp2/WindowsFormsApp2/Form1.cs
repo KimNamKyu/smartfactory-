@@ -9,152 +9,140 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace WindowsFormsApp2
 {
     public partial class Form1 : Form
     {
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
+        private TabPage tabPage3;
         public Form1()
         {
             InitializeComponent();
             Load += Form1_Load;
-            CrateMyPanel();
-        }
-        private void Form1_Load(Object o, EventArgs args)
-        {
-            ArrayList arrayList = new ArrayList();
-            arrayList.Add(new Item("button", 0, 0, "최적화"));
-            arrayList.Add(new Item("button", 0, 100, "관리"));
-            arrayList.Add(new Item("button", 0, 200, "삭제"));
-            arrayList.Add(new Item("button", 0, 300, "PC상태"));
-
-            for (int i = 0; i < arrayList.Count; i++)
-            {
-                Control_create((Item)arrayList[i]);
-            }
-        }
-        private void Control_create(Item item)
-        {
-            Control ctr = new Control();
-
-            switch (item.getType())
-            {
-                case "button":
-                    Button btn = new Button();
-                    btn.DialogResult = DialogResult.OK;
-                    btn.Cursor = Cursors.Hand;
-                    btn.Click += btn_Click;
-                    ctr = btn;
-                    break;
-                default:
-                    break;
-            }
-            ctr.Name = item.getTxt();
-            ctr.Text = item.getTxt();
-            ctr.Size = new Size(150, 100);
-            ctr.Location = new Point(item.getX(), item.getY());
-
-            Controls.Add(ctr);
         }
 
-
-        Button btn = new Button();
-        private void btn_Click(object o, EventArgs args)
+        private void Form1_Load(object sender, EventArgs e)
         {
-            foreach (Control ct in Controls)
-            {
-                if (ct.Name != "button") ct.BackColor = Color.Gainsboro;
-            }
-            btn = (Button)o;
-            btn.BackColor = (btn.BackColor == Color.SkyBlue ? btn.BackColor = Color.Gainsboro : btn.BackColor = Color.SkyBlue);
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            tabPage2 = new TabPage();
+            tabPage3 = new TabPage();
+
+            tabControl1.Padding = new Point(22, 20);
+            tabControl1.Controls.AddRange(new Control[] { tabPage1, tabPage2, tabPage3 });
+            tabControl1.Size = new Size(700, 500);
+
+            tabPage1.Text = "프로그램 삭제";
+            tabPage2.Text = "개인정보 삭제";
+            tabPage3.Text = "파일 강제삭제";
+
+            ModuleClass mc = new ModuleClass();
+            ArrayList arr = new ArrayList();
+            ArrayList col_list = new ArrayList();
+            ArrayList item_list = new ArrayList();
+            arr.Add(new lbobject(tabPage1, "lb", "라벨1", 100, 50, (30 + 30 + 100), 300));
+            arr.Add(new btnobject(tabPage1, "bb", "버튼1", 300, 50, 30, 300));
+
+
+            //헤더 데이터 생성
+            col_list.Add(new String[] { "", "25", "C" });
+            col_list.Add(new String[] { "프로그램명", "180", "C" });
+            col_list.Add(new String[] { "제작사", "200", "C" });
+            col_list.Add(new String[] { "설치일", "200", "C" });
+
+            //item 데이터 생성
+            item_list.Add(new items(new string[] { "Chrom", "Google.inc", "2018.09.17","asdsa" }));
+            item_list.Add(new items(new string[] { "HeidiSQL", "Ansgar Becker", "2018.10.05" }));
+            item_list.Add(new items(new string[] { "FileZilla Client 3.37.0", "Tim kosse", "2018.10.23" }));
             
-        }
-        public class Item
-        {
-            private string type;
-            private int X, Y;
-            private string txt;
 
-            public Item(string type, int X, int Y, string txt)
-            {
-                this.txt = txt;
-                this.type = type;
-                this.X = X;
-                this.Y = Y;
-            }
 
-            public string getType()
+            //제어문 사용하여 type비교
+            for (int i = 0; i < arr.Count; i++)
             {
-                return type;
+                 if (typeof(btnobject) == arr[i].GetType())  //arr[i] 객체가 btn의 객체이면 (type을 비교)
+                {
+                    mc.btn((btnobject)arr[i]);
+                }
+                else if (typeof(lbobject) == arr[i].GetType()) //arr[i] 객체가 lb (type 비교)
+                {
+                    mc.lb((lbobject)arr[i]);
+                }
             }
-            public string getTxt()
-            {
-                return txt;
-            }
-            public int getX()
-            {
-                return X;
-            }
-            public int getY()
-            {
-                return Y;
-            }
-
+            ListView lv = lv_create(col_list, item_list);
+            tabPage1.Controls.Add(lv);
+            Controls.AddRange(new Control[] { tabControl1 });
         }
 
-        private Bitmap MyImage;
-        public void ShowMyImage(string fileToDisplay, int xSize, int ySize)
-        {
-            PictureBox pictureBox1 = new PictureBox();
-            if (MyImage != null)
-            {
-                MyImage.Dispose();
-            }
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            MyImage = new Bitmap(fileToDisplay);
-            pictureBox1.ClientSize = new Size(xSize, ySize);
 
-            pictureBox1.Image = (Image)MyImage;
+        private ListView lv_create(ArrayList col_list, ArrayList item_list)
+        {
+            ListView lv = new ListView();
+
+            //리스트 뷰 속성 설정
+            lv.GridLines = true;
+            lv.CheckBoxes = true;
+            lv.Location = new Point(40, 40);
+            lv.Name = "listView1";
+            lv.Size = new Size(700, 250);
+            lv.TabIndex = 0;
+            lv.View = View.Details;
+
+
+            //헤더 설정
+            bool h_check = ch_create(col_list, lv);
+
+            // item 설정
+            bool i_check = i_create(item_list, lv);
+
+            return lv;
         }
 
-        private void CrateMyPanel()
+        //헤더 설정
+        private bool ch_create(ArrayList col_list, ListView lv)
         {
-            Panel p1 = new Panel();
-            p1.Location = new Point(150, 0);
-            p1.Size = new Size(700, 500);
-            p1.BorderStyle = BorderStyle.None;
-            p1.BackColor = Color.Yellow;
+            //헤더 설정
+            for (int i = 0; i < col_list.Count; i++)
+            {
+                string[] arr = (string[])col_list[i];
+                ColumnHeader columnHeader = new ColumnHeader();
+                columnHeader.Text = arr[0]; //배열 0번지에 넣는다.
+                columnHeader.Width = Convert.ToInt32(arr[1]);   //형변환 안할꺼면 객체를 만들면 됨.
 
-            ListView listView1 = new ListView();
-            listView1.View = View.Details;
-            listView1.CheckBoxes = true;
-            listView1.GridLines = true;
-            listView1.Location = new Point(160, 80);
-            listView1.Size = new Size(600, 250);
-            
-            listView1.Columns.Add("");
-            listView1.Columns.Add("프로그램명", 120);
-            listView1.Columns.Add("제작사", 180);
-            listView1.Columns.Add("설치일", 100);
+                switch (arr[2])
+                {
+                    case "L":
+                        columnHeader.TextAlign = HorizontalAlignment.Left;
+                        break;
+                    case "C":
+                        columnHeader.TextAlign = HorizontalAlignment.Center;
+                        break;
+                    case "R":
+                        columnHeader.TextAlign = HorizontalAlignment.Right;
+                        break;
+                }
+                lv.Columns.Add(columnHeader);
+            }
+            return true;
+        }
 
-            ListViewItem item1 = new ListViewItem(" ", 0);
-            item1.SubItems.Add("Chrom");
-            item1.SubItems.Add("Google.inc");
-            item1.SubItems.Add("2018.09.17");
-
-            ListViewItem item2 = new ListViewItem(" ", 0);
-            item2.SubItems.Add("HeidiSQL");
-            item2.SubItems.Add("Ansgar Becker");
-            item2.SubItems.Add("2018.10.05");
-
-            ListViewItem item3 = new ListViewItem(" ", 0);
-            item3.SubItems.Add("FileZilla Client 3.37.0");
-            item3.SubItems.Add("Tim kosse");
-            item3.SubItems.Add("2018.10.23");
-
-           
-            listView1.Items.AddRange(new ListViewItem[] { item1, item2, item3 });
-            Controls.Add(listView1);
-            Controls.Add(p1);
+        // item 설정
+        private bool i_create(ArrayList item_list, ListView lv)
+        {
+            for (int i = 0; i < item_list.Count; i++)
+            {
+                items row = (items)item_list[i];
+                ListViewItem item = new ListViewItem(row.getCol); ;
+                item.SubItems.Add(row.getCol2());
+                item.SubItems.Add(row.getCol3());
+                item.SubItems.Add(row.getCol4());
+                lv.Items.Add(item);
+            }
+            return true;
         }
     }
+
 }

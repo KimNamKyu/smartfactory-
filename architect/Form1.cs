@@ -40,7 +40,6 @@ namespace architect
             panel3.BackColor = Color.Aqua;
 
             tabControl1 = MyTabs();
-            
             Controls.Add(panel3);
         }
         private TabControl MyTabs()
