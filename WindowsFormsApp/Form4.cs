@@ -31,7 +31,7 @@ namespace WindowsFormsApp
             //c1.btn(this, "btn_1", "버튼1", 100, 50, 30, (30 + 30 + 50));
             ArrayList arr = new ArrayList();
             arr.Add(new btnobject(this, "btn_1", "버튼1", 100, 50, 30, 30, btn1_Click));
-            arr.Add(new btnobject(this, "btn_1", "버튼1", 100, 50, 30, (30 + 30 + 50),btn2_Click));
+            arr.Add(new btnobject(this, "btn_1", "버튼1", 100, 50, 30, (30 + 30 + 50), btn2_Click));
             arr.Add(new lbobject(this, "lb", "라벨1", 100, 50, (30+30+100), 30));
 
             for (int i = 0; i<arr.Count; i++)
