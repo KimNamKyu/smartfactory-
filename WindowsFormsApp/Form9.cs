@@ -52,7 +52,7 @@ namespace WindowsFormsApp
                 {
                     //Hashtable을 사용하면 컬럼 타입을 알 필요가없다 reader에 칼럼수를 알면 반복문을 돌려서 가져올수 있음
                     //키와 값 형식으로 받기위함 
-                    Hashtable ht = new Hashtable(); // item(행)을 담는다.
+                    Hashtable ht = new Hashtable(); // item()을 담는다.
                     // 요소를 컬렉션에 담는다.
                     ht.Add("no", reader[0]);
                     ht.Add("name", reader[1]);
