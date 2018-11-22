@@ -79,7 +79,7 @@ namespace WindowsFormsApp
             {
                 case "btn1":
                     MYsql my = new MYsql();
-                    my.Exec();
+                    //my.Exec();
                     break;
 
                 case "btn2":

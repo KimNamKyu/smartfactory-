@@ -74,7 +74,16 @@ namespace Db
 
     class MYsql
     {
-        public void Exec()
+        MySqlConnection conn;
+        public MYsql()
+        {
+            conn = MySqlConnection();
+        } 
+        public void Excu()
+        {
+            MySqlConnection conn = MySqlConnection();
+        }
+        public MySqlConnection MySqlConnection()
         {
             string host = "myDB";
             string user = "root";
@@ -86,14 +95,20 @@ namespace Db
             try
             {
                 conn.Open();
-                MessageBox.Show("연결 성공");
+                //MessageBox.Show("연결 성공");
             }
             catch
             {
                 conn.Close();
-                MessageBox.Show("연결 실패");
+                //MessageBox.Show("연결 실패");
             }
-            conn.Close();
+            return conn;
+        }
+        public MySqlDataReader Select(string sql)
+        {
+            MySqlCommand comm = new MySqlCommand(sql,conn);
+            MySqlDataReader reader = comm.ExecuteReader();
+            return reader;
         }
     }
 }

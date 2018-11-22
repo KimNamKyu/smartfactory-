@@ -1,4 +1,5 @@
 ﻿using Db;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,6 +22,7 @@ namespace WindowsFormsApp
         }
         ListView lv1;
         ListView lv2;
+        bool 분류;
         private void Main2_Load(object sender, EventArgs e)
         {
             this.IsMdiContainer = true;
@@ -86,55 +88,116 @@ namespace WindowsFormsApp
             ListView.SelectedListViewItemCollection itemGroup = lv.SelectedItems;
             ListViewItem item = itemGroup[0];
             //MessageBox.Show(item.SubItems[0].Text);
-
-            string sql = string.Format("select * from {0}", item.SubItems[0].Text);
-            MSsql ms = new MSsql();
-            SqlDataReader Sdr = ms.Select(sql);
-            lv2.Clear();
-            bool circle = true; //일회전
-            while (Sdr.Read())
+            switch (분류)
             {
-                ListViewItem row = null;   //하나의 행에 대해 만들어짐.
+                case true:
+                    string sql2 = string.Format("select * from {0}", item.SubItems[0].Text);
+                    MYsql my = new MYsql();
+                    MySqlDataReader Sdrr = my.Select(sql2);
+                    lv2.Clear();
+                    bool circle2 = true; //일회전
+                    while (Sdrr.Read())
+                    {
+                        ListViewItem row = null;   //하나의 행에 대해 만들어짐.
 
-                for (int i = 0; i < Sdr.FieldCount; i++)
-                {
-                    //헤더 생성
-                    if (circle) lv2.Columns.Add(Sdr.GetName(i));
+                        for (int i = 0; i < Sdrr.FieldCount; i++)
+                        {
+                            //헤더 생성
+                            if (circle2) lv2.Columns.Add(Sdrr.GetName(i));
 
-                    //그리드 데이터 생성
-                    string value = Sdr.GetValue(i).ToString();
-                    if (row == null) row = new ListViewItem(value);
-                    else row.SubItems.Add(value);
-                }
-                circle = false;
-                lv2.Items.Add(row);
+                            //그리드 데이터 생성
+                            string value = Sdrr.GetValue(i).ToString();
+                            if (row == null) row = new ListViewItem(value);
+                            else row.SubItems.Add(value);
+                        }
+                        circle2 = false;
+                        lv2.Items.Add(row);
+                    }
+                    break;
+                case false:
+                    string sql = string.Format("select * from {0}", item.SubItems[0].Text);
+                    MSsql ms = new MSsql();
+                    SqlDataReader Sdr = ms.Select(sql);
+                    lv2.Clear();
+                    bool circle = true; //일회전
+                    while (Sdr.Read())
+                    {
+                        ListViewItem row = null;   //하나의 행에 대해 만들어짐.
+
+                        for (int i = 0; i < Sdr.FieldCount; i++)
+                        {
+                            //헤더 생성
+                            if (circle) lv2.Columns.Add(Sdr.GetName(i));
+
+                            //그리드 데이터 생성
+                            string value = Sdr.GetValue(i).ToString();
+                            if (row == null) row = new ListViewItem(value);
+                            else row.SubItems.Add(value);
+                        }
+                        circle = false;
+                        lv2.Items.Add(row);
+                    }
+                    break;
             }
-
         }
 
         private void Btn_Click(object sender, EventArgs e)
         {
-            lv1.Clear();
-            MSsql ms = new MSsql();
-            SqlDataReader Sdr = ms.Select("select name as tableName from gdc.sys.tables;");
-            bool circle = true; //일회전
-            while (Sdr.Read())
+            Button btn = (Button)sender;
+
+            switch (btn.Name)
             {
-                ListViewItem item = null;   //하나의 행에 대해 만들어짐.
+                case "btn1":
+                    분류 = true;
+                    lv1.Clear();
+                    MYsql my = new MYsql();
+                    //my.Exec();
+                    MySqlDataReader Sdrr = my.Select("show tables;");
+                    bool circle1 = true;
+                    while (Sdrr.Read())
+                    {
+                        ListViewItem item = null;
 
-                for (int i = 0; i < Sdr.FieldCount; i++)
-                {
-                    //헤더 생성
-                    if (circle) lv1.Columns.Add(Sdr.GetName(i));
+                        for(int i = 0; i <Sdrr.FieldCount; i++)
+                        {
+                            if (circle1) lv1.Columns.Add(Sdrr.GetName(i));
 
-                    //그리드 데이터 생성
-                    string value = Sdr.GetValue(i).ToString();
-                    if (item == null) item = new ListViewItem(value);
-                    else item.SubItems.Add(value);
-                }
-                circle = false;
-                lv1.Items.Add(item);
+                            string value = Sdrr.GetValue(i).ToString();
+                            if (item == null) item = new ListViewItem(value);
+                            else item.SubItems.Add(value);
+                        }
+                        circle1 = false;
+                        lv1.Items.Add(item);
+                    }
+                    break;
+                case "btn2":
+                    분류 = false;
+                    lv1.Clear();
+                    MSsql ms = new MSsql();
+                    SqlDataReader Sdr = ms.Select("select name as tableName from gdc.sys.tables;");
+                    bool circle = true; //일회전
+                    while (Sdr.Read())
+                    {
+                        ListViewItem item = null;   //하나의 행에 대해 만들어짐.
+
+                        for (int i = 0; i < Sdr.FieldCount; i++)
+                        {
+                            //헤더 생성
+                            if (circle) lv1.Columns.Add(Sdr.GetName(i));
+
+                            //그리드 데이터 생성
+                            string value = Sdr.GetValue(i).ToString();
+                            if (item == null) item = new ListViewItem(value);
+                            else item.SubItems.Add(value);
+                        }
+                        circle = false;
+                        lv1.Items.Add(item);
+                    }
+                    break;
+                default:
+                    break;
             }
+          
         }
 
             private void Btn_MouseHover(object sender, EventArgs e)
