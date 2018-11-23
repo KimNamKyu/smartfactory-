@@ -212,14 +212,13 @@ namespace _20181122
             string sql = string.Format("insert into board (boardTitle, boardContents) values('{0}','{1}');", tb2.Text, tb3.Text);
             //MessageBox.Show(sql);
             bool check = msSql.Insert(conn, sql);
-
             if (check)
             {
-                MessageBox.Show("저장을 성공하였습니다.");
+                MessageBox.Show("수정이 성공하였습니다.");
             }
             else
             {
-                MessageBox.Show("저장 중 오류가 발생하였습니다.");
+                MessageBox.Show("수정 중 오류가 발생하였습니다.");
             }
             create_list();
         }
@@ -262,7 +261,7 @@ namespace _20181122
         }
         private void Btn4_Click(object sender, EventArgs e) //초기화
         {
-            create_list();
+
         }
     }
 }

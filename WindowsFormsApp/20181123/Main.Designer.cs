@@ -1,4 +1,4 @@
-﻿namespace _20181122
+﻿namespace _20181123
 {
     partial class Main
     {
@@ -28,17 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // Main
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "Main";
             this.Text = "Form1";
-            this.ResumeLayout(false);
-
         }
 
         #endregion
