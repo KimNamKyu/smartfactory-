@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -29,13 +30,31 @@ namespace _20181123
 
         private void getView()  //화면구성
         {
+            string sql = "select * from ViewControl;";
+            SqlDataReader sdr = db.Reader(sql);
+            while (sdr.Read())
+            {
+                 string vNo = sdr["vNo"].ToString();
+                int sizeX = Convert.ToInt32(sdr["sizeX"].ToString());
+                int sizeY = Convert.ToInt32(sdr["sizeY"].ToString());
+                
+                hashtable = new Hashtable();
+                hashtable.Add("type", "");
+                hashtable.Add("size", new Size(sizeX, sizeY));
+                hashtable.Add("point", new Point(0, 0));
+                hashtable.Add("color", Color.Green);
+                hashtable.Add("name", "head");
+                head = comm.getPanel(hashtable, parentForm);
+            }
+
+            /*
             hashtable = new Hashtable();
             hashtable.Add("type", "");
             hashtable.Add("size", new Size(1000, 100));
             hashtable.Add("point", new Point(0, 0));
             hashtable.Add("color", Color.Silver);
             hashtable.Add("name", "head");
-            head = comm.getPanel(hashtable, parentForm);
+            
 
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(1000, 700));
@@ -70,6 +89,7 @@ namespace _20181123
             hashtable.Add("text", "Mapping");
             hashtable.Add("click", (EventHandler)btn3_click);
             btn3 = comm.getButton(hashtable, head);
+            */
         }
 
         private void btn1_click(object o, EventArgs a)
