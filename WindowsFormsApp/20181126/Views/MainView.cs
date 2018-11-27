@@ -30,21 +30,40 @@ namespace _20181123
 
         private void getView()  //화면구성
         {
+
             string sql = "select * from ViewControl;";
             SqlDataReader sdr = db.Reader(sql);
             while (sdr.Read())
             {
-                 string vNo = sdr["vNo"].ToString();
+
+                string vNo = sdr["vNo"].ToString();
+                string svName = sdr["svName"].ToString();
                 int sizeX = Convert.ToInt32(sdr["sizeX"].ToString());
                 int sizeY = Convert.ToInt32(sdr["sizeY"].ToString());
-                
-                hashtable = new Hashtable();
-                hashtable.Add("type", "");
-                hashtable.Add("size", new Size(sizeX, sizeY));
-                hashtable.Add("point", new Point(0, 0));
-                hashtable.Add("color", Color.Green);
-                hashtable.Add("name", "head");
-                head = comm.getPanel(hashtable, parentForm);
+                int pointX = Convert.ToInt32(sdr["pointX"].ToString());
+                int pointY = Convert.ToInt32(sdr["pointY"].ToString());
+
+               if(svName == "head")
+                {
+                    hashtable = new Hashtable();
+                    hashtable.Add("type", "");
+                    hashtable.Add("size", new Size(sizeX, sizeY));
+                    hashtable.Add("point", new Point(pointX, pointY));
+                    hashtable.Add("color", Color.Yellow);
+                    hashtable.Add("name", svName);
+                    head = comm.getPanel(hashtable, parentForm);
+                }
+               else if(svName == "contents")
+                {
+                    hashtable = new Hashtable();
+                    hashtable.Add("size", new Size(sizeX, sizeY));
+                    hashtable.Add("point", new Point(pointX, pointY));
+                    hashtable.Add("color", Color.Green);
+                    hashtable.Add("name", svName);
+                    contents = comm.getPanel(hashtable, parentForm);
+                }
+                //MessageBox.Show(pointX.ToString() + " " + pointY.ToString() + " " + sizeX.ToString() + " " + sizeY.ToString());
+
             }
 
             /*
@@ -54,7 +73,7 @@ namespace _20181123
             hashtable.Add("point", new Point(0, 0));
             hashtable.Add("color", Color.Silver);
             hashtable.Add("name", "head");
-            
+            head = comm.getPanel(hashtable, parentForm);
 
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(1000, 700));
