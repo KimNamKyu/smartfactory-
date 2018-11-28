@@ -1,4 +1,5 @@
 ﻿using DB;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace _20181123
 {
     class MappingView
     {
-        private MSsql db;
+        private MYsql db;
         private Commons comm;
         private Panel member, rule, mapping, bottom;
         private Label label1, label2, label3, label4;
@@ -28,7 +29,7 @@ namespace _20181123
         public MappingView(Form parentForm, Object oDB)
         {
             this.parentForm = parentForm;
-            this.db = (MSsql)oDB;
+            this.db = (MYsql)oDB;
             comm = new Commons();
             getView();
         }
@@ -134,7 +135,7 @@ namespace _20181123
         private void SelectMember()
         {
             string sql = "select mNo, mName from Member where delYn = 'N';";
-            SqlDataReader sdr = db.Reader(sql);
+            MySqlDataReader sdr = db.Reader(sql);
             bs = new BindingSource();
             hashtable = new Hashtable();
             hashtable.Add("0", "선택하세요.");
@@ -150,8 +151,8 @@ namespace _20181123
 
         private void SelectRule()
         {
-            string sql = "select rNo, rName from [Rule] where delYn = 'N';";
-            SqlDataReader sdr = db.Reader(sql);
+            string sql = "select rNo, rName from Rule where delYn = 'N';";
+            MySqlDataReader sdr = db.Reader(sql);
             bs = new BindingSource();
             hashtable = new Hashtable();
             hashtable.Add("0", "선택하세요.");
@@ -192,8 +193,8 @@ namespace _20181123
 
         private void SelectMapping()
         {
-            string sql = "SELECT [Mapping].mNo, [Member].mName, [Mapping].rNo, [Rule].rName FROM [Mapping] left outer join [Member] on ([Mapping].mNo = [Member].mNo and [Member].delYn = 'N') left outer join [Rule] on ([Mapping].rNo = [Rule].rNo and [Rule].delYn = 'N')  order by mNo;";
-            SqlDataReader sdr = db.Reader(sql);
+            string sql = "SELECT Mapping.mNo, Member.mName, Mapping.rNo, Rule.rName FROM Mapping left outer join Member on (Mapping.mNo = Member.mNo and Member.delYn = 'N') left outer join Rule on (Mapping.rNo = Rule.rNo and Rule.delYn = 'N')  order by mNo;";
+            MySqlDataReader sdr = db.Reader(sql);
 
             listView.Clear();
 
@@ -218,7 +219,7 @@ namespace _20181123
         private void btn1_click(object sender, EventArgs e)
         {
             string sql = string.Format("select rNo, mNo from Mapping where rNo = {0} and mNo = {1};", rNo, mNo);
-            SqlDataReader sdr = db.Reader(sql);
+            MySqlDataReader sdr = db.Reader(sql);
 
             bool check = true;
 
@@ -230,7 +231,7 @@ namespace _20181123
 
             if (check)
             {
-                sql = string.Format("insert into [Mapping] values ({0},{1});", rNo, mNo);
+                sql = string.Format("insert into Mapping values ({0},{1});", rNo, mNo);
                 if (db.NonQuery(sql))
                 {
                     MessageBox.Show("맵핑 추가 되었습니다.");
@@ -251,7 +252,7 @@ namespace _20181123
         //삭제
         private void btn2_click(object sender, EventArgs e)
         {
-            string sql = string.Format("delete from [Mapping] where rNo = {0} and mNo = {1};", rNo, mNo);
+            string sql = string.Format("delete from Mapping where rNo = {0} and mNo = {1};", rNo, mNo);
             if (db.NonQuery(sql))
             {
                 MessageBox.Show("맵핑 삭제가 되었습니다.");

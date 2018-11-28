@@ -36,6 +36,8 @@ namespace _20181123
             this.MinimizeBox = false;
             this.Text = "회원정보";
 
+
+
             Hashtable hashtable = new Hashtable();
             hashtable.Add("size", new Size(1000, 100));
             hashtable.Add("point", new Point(0, 0));

@@ -1,4 +1,5 @@
 ﻿using DB;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace _20181123
 {
     class RuleView
     {
-        private MSsql db;
+        private MYsql db;
         private Commons comm;
         private Panel head, contents;
         private ListView listView;
@@ -25,7 +26,7 @@ namespace _20181123
         public RuleView(Form parentForm, Object oDB)
         {
             this.parentForm = parentForm;
-            this.db = (MSsql)oDB;   
+            this.db = (MYsql)oDB;   
             comm = new Commons();
             getView();
         }
@@ -192,8 +193,8 @@ namespace _20181123
             listView.Columns.Add("delYn", 50, HorizontalAlignment.Center);
             listView.Columns.Add("regDate", 300, HorizontalAlignment.Left);
             listView.Columns.Add("modDate", 300, HorizontalAlignment.Left);
-            string sql = "select rNo, rName, rDesc, delYn, regDate, modDate from [Rule];";
-            SqlDataReader sdr = db.Reader(sql);
+            string sql = "select rNo, rName, rDesc, delYn, regDate, modDate from Rule;";
+            MySqlDataReader sdr = db.Reader(sql);
             while (sdr.Read())
             {
                 string[] arr = new string[sdr.FieldCount];
@@ -216,7 +217,7 @@ namespace _20181123
 
             if (TextBoxCheck())
             {
-                string sql = string.Format("insert into [Rule] (rName, rDesc) values ('{0}','{1}');", textBox2.Text, textBox3.Text);
+                string sql = string.Format("insert into Rule (rName, rDesc) values ('{0}','{1}');", textBox2.Text, textBox3.Text);
                 if (db.NonQuery(sql)) SelectData();
             }
         }
@@ -231,7 +232,7 @@ namespace _20181123
 
             if (TextBoxCheck())
             {
-                string sql = string.Format("update [Rule] set rName = '{1}', rDesc = '{2}', modDate = getDate() where rNo = {0}", textBox1.Text, textBox2.Text, textBox3.Text);
+                string sql = string.Format("update Rule set rName = '{1}', rDesc = '{2}', modDate = getDate() where rNo = {0}", textBox1.Text, textBox2.Text, textBox3.Text);
                 if (db.NonQuery(sql)) SelectData();
             }
         }
@@ -243,7 +244,7 @@ namespace _20181123
                 MessageBox.Show("권한를 선택해주세요.");
                 return;
             }
-            string sql = string.Format("update [Rule] set delYn = 'Y' where rNo = {0}", textBox1.Text);
+            string sql = string.Format("update Rule set delYn = 'Y' where rNo = {0}", textBox1.Text);
             if (db.NonQuery(sql)) SelectData();
         }
 

@@ -1,4 +1,5 @@
 ﻿using DB;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace _20181123
 {
     public class UserView
     {
-        private MSsql db;
+        private MYsql db;
         private Commons comm;
         private Panel head, contents;
         private ListView listView;
@@ -25,127 +26,145 @@ namespace _20181123
         public UserView(Form parentForm, Object oDB)
         {
             this.parentForm = parentForm;
-            this.db = (MSsql)oDB;
+            this.db = (MYsql)oDB;
             comm = new Commons();
             getView();
         }
 
         private void getView()
         {
-            hashtable = new Hashtable();
-            hashtable.Add("type", "");
-            hashtable.Add("size", new Size(1000, 500));
-            hashtable.Add("point", new Point(0, 0));
-            hashtable.Add("color", Color.White);
-            hashtable.Add("name", "head");
-            head = comm.getPanel(hashtable, parentForm);
+            /*
+            string sql = "select * from ViewControl;";
+            MySqlDataReader sdr = db.Reader(sql);
 
-            hashtable = new Hashtable();
-            hashtable.Add("size", new Size(1000, 200));
-            hashtable.Add("point", new Point(0, 500));
-            hashtable.Add("color", Color.Yellow);
-            hashtable.Add("name", "contents");
-            contents = comm.getPanel(hashtable, parentForm);
+            string[] arr = new string[sdr.FieldCount];
+            while (sdr.Read())
+            {
+                string svName = sdr["svName"].ToString();
+                int RGB = Convert.ToInt32(sdr["color"]);
+                int btnevent = Convert.ToInt32(sdr["event"]);
 
-            hashtable = new Hashtable();
-            hashtable.Add("width", 45);
-            hashtable.Add("point", new Point(0, 0));
-            hashtable.Add("color", Color.Silver);
-            hashtable.Add("name", "textBox1");
-            hashtable.Add("enabled", false);
-            textBox1 = comm.getTextBox(hashtable, contents);
+                for (int i = 0; i < sdr.FieldCount; i++)
+                {
+                    arr[i] = sdr.GetValue(i).ToString();
+                    //MessageBox.Show(arr[i].ToString());
+                }
+            }
+            */
+                hashtable = new Hashtable();
+                hashtable.Add("type", "");
+                hashtable.Add("size", new Size(1000, 500));
+                hashtable.Add("point", new Point(0, 0));
+                hashtable.Add("color", Color.White);
+                hashtable.Add("name", "head");
+                head = comm.getPanel(hashtable, parentForm);
 
-            hashtable = new Hashtable();
-            hashtable.Add("width", 100);
-            hashtable.Add("point", new Point(45, 0));
-            hashtable.Add("color", Color.White);
-            hashtable.Add("name", "textBox2");
-            hashtable.Add("enabled", true);
-            textBox2 = comm.getTextBox(hashtable, contents);
+                hashtable = new Hashtable();
+                hashtable.Add("size", new Size(1000, 200));
+                hashtable.Add("point", new Point(0, 500));
+                hashtable.Add("color", Color.Yellow);
+                hashtable.Add("name", "contents");
+                contents = comm.getPanel(hashtable, parentForm);
 
-            hashtable = new Hashtable();
-            hashtable.Add("width", 100);
-            hashtable.Add("point", new Point(145, 0));
-            hashtable.Add("color", Color.White);
-            hashtable.Add("name", "textBox3");
-            hashtable.Add("enabled", true);
-            textBox3 = comm.getTextBox(hashtable, contents);
+                hashtable = new Hashtable();
+                hashtable.Add("width", 45);
+                hashtable.Add("point", new Point(0, 0));
+                hashtable.Add("color", Color.Silver);
+                hashtable.Add("name", "textBox1");
+                hashtable.Add("enabled", false);
+                textBox1 = comm.getTextBox(hashtable, contents);
 
-            hashtable = new Hashtable();
-            hashtable.Add("width", 100);
-            hashtable.Add("point", new Point(245, 0));
-            hashtable.Add("color", Color.White);
-            hashtable.Add("name", "textBox4");
-            hashtable.Add("enabled", true);
-            textBox4 = comm.getTextBox(hashtable, contents);
+                hashtable = new Hashtable();
+                hashtable.Add("width", 100);
+                hashtable.Add("point", new Point(45, 0));
+                hashtable.Add("color", Color.White);
+                hashtable.Add("name", "textBox2");
+                hashtable.Add("enabled", true);
+                textBox2 = comm.getTextBox(hashtable, contents);
 
-            hashtable = new Hashtable();
-            hashtable.Add("width", 50);
-            hashtable.Add("point", new Point(345, 0));
-            hashtable.Add("color", Color.Silver);
-            hashtable.Add("name", "textBox5");
-            hashtable.Add("enabled", false);
-            textBox5 = comm.getTextBox(hashtable, contents);
+                hashtable = new Hashtable();
+                hashtable.Add("width", 100);
+                hashtable.Add("point", new Point(145, 0));
+                hashtable.Add("color", Color.White);
+                hashtable.Add("name", "textBox3");
+                hashtable.Add("enabled", true);
+                textBox3 = comm.getTextBox(hashtable, contents);
 
-            hashtable = new Hashtable();
-            hashtable.Add("width", 300);
-            hashtable.Add("point", new Point(395, 0));
-            hashtable.Add("color", Color.Silver);
-            hashtable.Add("name", "textBox6");
-            hashtable.Add("enabled", false);
-            textBox6 = comm.getTextBox(hashtable, contents);
+                hashtable = new Hashtable();
+                hashtable.Add("width", 100);
+                hashtable.Add("point", new Point(245, 0));
+                hashtable.Add("color", Color.White);
+                hashtable.Add("name", "textBox4");
+                hashtable.Add("enabled", true);
+                textBox4 = comm.getTextBox(hashtable, contents);
 
-            hashtable = new Hashtable();
-            hashtable.Add("width", 300);
-            hashtable.Add("point", new Point(695, 0));
-            hashtable.Add("color", Color.Silver);
-            hashtable.Add("name", "textBox7");
-            hashtable.Add("enabled", false);
-            textBox7 = comm.getTextBox(hashtable, contents);
+                hashtable = new Hashtable();
+                hashtable.Add("width", 50);
+                hashtable.Add("point", new Point(345, 0));
+                hashtable.Add("color", Color.Silver);
+                hashtable.Add("name", "textBox5");
+                hashtable.Add("enabled", false);
+                textBox5 = comm.getTextBox(hashtable, contents);
 
-            hashtable = new Hashtable();
-            hashtable.Add("size", new Size(100, 80));
-            hashtable.Add("point", new Point(100, 50));
-            hashtable.Add("color", Color.White);
-            hashtable.Add("name", "btn1");
-            hashtable.Add("text", "저장");
-            hashtable.Add("click", (EventHandler)btn_click);
-            btn1 = comm.getButton(hashtable, contents);
+                hashtable = new Hashtable();
+                hashtable.Add("width", 300);
+                hashtable.Add("point", new Point(395, 0));
+                hashtable.Add("color", Color.Silver);
+                hashtable.Add("name", "textBox6");
+                hashtable.Add("enabled", false);
+                textBox6 = comm.getTextBox(hashtable, contents);
 
-            hashtable = new Hashtable();
-            hashtable.Add("size", new Size(100, 80));
-            hashtable.Add("point", new Point(300, 50));
-            hashtable.Add("color", Color.White);
-            hashtable.Add("name", "btn2");
-            hashtable.Add("text", "수정");
-            hashtable.Add("click", (EventHandler)btn_click);
-            btn2 = comm.getButton(hashtable, contents);
+                hashtable = new Hashtable();
+                hashtable.Add("width", 300);
+                hashtable.Add("point", new Point(695, 0));
+                hashtable.Add("color", Color.Silver);
+                hashtable.Add("name", "textBox7");
+                hashtable.Add("enabled", false);
+                textBox7 = comm.getTextBox(hashtable, contents);
 
-            hashtable = new Hashtable();
-            hashtable.Add("size", new Size(100, 80));
-            hashtable.Add("point", new Point(600, 50));
-            hashtable.Add("color", Color.White);
-            hashtable.Add("name", "btn3");
-            hashtable.Add("text", "삭제");
-            hashtable.Add("click", (EventHandler)btn_click);
-            btn3 = comm.getButton(hashtable, contents);
+                hashtable = new Hashtable();
+                hashtable.Add("size", new Size(100, 80));
+                hashtable.Add("point", new Point(100, 50));
+                hashtable.Add("color", Color.White);
+                hashtable.Add("name", "btn1");
+                hashtable.Add("text", "저장");
+                hashtable.Add("click", (EventHandler)btn_click);
+                btn1 = comm.getButton(hashtable, contents);
 
-            hashtable = new Hashtable();
-            hashtable.Add("size", new Size(100, 80));
-            hashtable.Add("point", new Point(800, 50));
-            hashtable.Add("color", Color.White);
-            hashtable.Add("name", "btn4");
-            hashtable.Add("text", "초기화");
-            hashtable.Add("click", (EventHandler)btn_click);
-            btn4 = comm.getButton(hashtable, contents);
+                hashtable = new Hashtable();
+                hashtable.Add("size", new Size(100, 80));
+                hashtable.Add("point", new Point(300, 50));
+                hashtable.Add("color", Color.White);
+                hashtable.Add("name", "btn2");
+                hashtable.Add("text", "수정");
+                hashtable.Add("click", (EventHandler)btn_click);
+                btn2 = comm.getButton(hashtable, contents);
 
-            hashtable = new Hashtable();
-            hashtable.Add("color", Color.White);
-            hashtable.Add("name", "listView");
-            hashtable.Add("click", (MouseEventHandler) listView_click);
-            listView = comm.getListView(hashtable, head);
+                hashtable = new Hashtable();
+                hashtable.Add("size", new Size(100, 80));
+                hashtable.Add("point", new Point(600, 50));
+                hashtable.Add("color", Color.White);
+                hashtable.Add("name", "btn3");
+                hashtable.Add("text", "삭제");
+                hashtable.Add("click", (EventHandler)btn_click);
+                btn3 = comm.getButton(hashtable, contents);
 
-            SelectData();
+                hashtable = new Hashtable();
+                hashtable.Add("size", new Size(100, 80));
+                hashtable.Add("point", new Point(800, 50));
+                hashtable.Add("color", Color.White);
+                hashtable.Add("name", "btn4");
+                hashtable.Add("text", "초기화");
+                hashtable.Add("click", (EventHandler)btn_click);
+                btn4 = comm.getButton(hashtable, contents);
+
+                hashtable = new Hashtable();
+                hashtable.Add("color", Color.White);
+                hashtable.Add("name", "listView");
+                hashtable.Add("click", (MouseEventHandler) listView_click);
+                listView = comm.getListView(hashtable, head);
+
+                SelectData();
         }
 
         private void listView_click(object o, EventArgs a)
@@ -203,7 +222,7 @@ namespace _20181123
             listView.Columns.Add("regDate", 300, HorizontalAlignment.Left);
             listView.Columns.Add("modDate", 300, HorizontalAlignment.Left);
             string sql = "select mNo, mID, mPass, mName, delYn, regDate, modDate from Member;";
-            SqlDataReader sdr = db.Reader(sql);
+            MySqlDataReader sdr = db.Reader(sql);
             while (sdr.Read())
             {
                 string[] arr = new string[sdr.FieldCount];
