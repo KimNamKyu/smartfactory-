@@ -13,7 +13,7 @@ namespace _1205
 {
     class Class1
     {
-        public static void Main()
+        public  void Main()
         {
             //JSON 읽어오기
             WebClient client = new WebClient(); // 웹 접속 객체생성

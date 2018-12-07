@@ -14,7 +14,7 @@ namespace _1205
 {
     class Program
     {
-         void Main(string[] args)
+         static void Main(string[] args)
         {
             WebClient client = new WebClient(); // 웹 접속 객체생성
             NameValueCollection data = new NameValueCollection();  //key / value 형식으로 받음 객체 생성
