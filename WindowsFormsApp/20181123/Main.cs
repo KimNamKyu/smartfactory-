@@ -51,7 +51,8 @@ namespace _20181123
             hashtable.Add("point", new Point(0, 100));
             hashtable.Add("color", Color.Yellow);
             hashtable.Add("name", "contents");
-            Controls.Add(comm.getPanel(hashtable));
+            Panel panel2 = comm.getPanel(hashtable);
+            Controls.Add(panel2);
 
             hashtable = new Hashtable();
             hashtable.Add("size", new Size(200, 90));
@@ -82,6 +83,16 @@ namespace _20181123
             hashtable.Add("click", (EventHandler)Btn3_Click);
             Button button3 = comm.getButton(hashtable);
             panel1.Controls.Add(button3);
+
+            hashtable = new Hashtable();
+            hashtable.Add("size", new Size(200, 90));
+            hashtable.Add("point", new Point(500, 0));
+            hashtable.Add("color", Color.Gainsboro);
+            hashtable.Add("name", "button3");
+            hashtable.Add("text", "Mapping ");
+            hashtable.Add("click", (EventHandler)Btn3_Click);
+            Button button4 = comm.getButton(hashtable);
+            panel2.Controls.Add(button4);
 
 
             //버튼 이벤트 활성화
