@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,10 @@ namespace ConsoleApp2
             {
                 conn.Open();
                 Console.WriteLine("연결 성공");
+                string sql = "select ml.ml_No, m.m_Name, m.m_Price, ml.ml_Count, ml.ml_TotalCount from Menulist as ml inner join Menu as m on(ml.ml_mNo = m.m_No); ";
+                MySqlCommand comm = new MySqlCommand(sql,conn);
+                MySqlDataReader sdr = comm.ExecuteReader();
+ 
             }
             catch 
             {
