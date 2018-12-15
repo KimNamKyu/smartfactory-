@@ -14,7 +14,7 @@ namespace _1205
 {
     class Program
     {
-         void Main(string[] args)
+         static void Main(string[] args)
         {
             WebClient client = new WebClient(); // 웹 접속 객체생성
             NameValueCollection data = new NameValueCollection();  //key / value 형식으로 받음 객체 생성
@@ -23,7 +23,7 @@ namespace _1205
             client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
             client.Encoding = Encoding.UTF8;    //한글처리
 
-            string url = "http://192.168.3.10:5000/api/Insert"; //웹 호출 주소 정의 
+            string url = "http://192.168.0.2:5000/api/Insert"; //웹 호출 주소 정의 
             string method = "POST"; //웹 호출시 통신 방식 정의 (POST 방식(Form Date)은 Headers안에 데이터를 넣고 보내는 방식 ) Get(문자열 Query)
             
             data.Add("id", "1");    //파라미터 값 정의 (Key, Value) 형식

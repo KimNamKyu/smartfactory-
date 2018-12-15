@@ -57,11 +57,11 @@ namespace dotnet
 
 
             hashtable = new Hashtable();
-            hashtable.Add("size", new Size(100, 200));
-            hashtable.Add("point", new Point(0, 500));
+            hashtable.Add("size", new Size(200, 100));
+            hashtable.Add("point", new Point(0, 0));
             hashtable.Add("color", Color.Gainsboro);
             hashtable.Add("name", "btn1");
-            hashtable.Add("text", " ");
+            hashtable.Add("text", "조회");
             hashtable.Add("click", (EventHandler)btn_click);
             Button btn = comm.getButton(hashtable);
             panel2.Controls.Add(btn);
@@ -72,35 +72,43 @@ namespace dotnet
             list = comm.getListView(hashtable);
             panel.Controls.Add(list);
 
+            list.Columns.Add("id", 100);
+            list.Columns.Add("name", 100);
+            list.Columns.Add("passwd", 100);
+
+
+        }
+
+        private void btn_click(object sender, EventArgs e)
+        {
             WebClient client = new WebClient();
 
             client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
             client.Encoding = Encoding.UTF8;    //한글처리
 
-            string url = "http://192.168.3.10:5000/api/Select";
+            string url = "http://192.168.0.2:5000/api/Select";
 
             Stream result = client.OpenRead(url);
             StreamReader sr = new StreamReader(result);
             string str = sr.ReadToEnd();
-            //MessageBox.Show(str);
-
-            //string strj = JsonConvert.SerializeObject(str);
-            //MessageBox.Show(strj);
-
+            
             ArrayList strJ = JsonConvert.DeserializeObject<ArrayList>(str);
-            //MessageBox.Show(strJ.ToString());
             ArrayList arrayList = new ArrayList();
-            for( int i = 0; i< strJ.Count; i++)
+            foreach (JObject row in strJ)
             {
-                JObject jo = (JObject)strJ[i];
-                Hashtable ht = new Hashtable();
-                foreach(JProperty jp in jo.Properties())
-               {
-                    //MessageBox.Show(jp.Name.ToString(), jp.Value.ToString());
-                    ht.Add(jp.Name, jp.Value);
-               }
-                
+                //Hashtable ht = new Hashtable();
+                foreach (JProperty col in row.Properties())
+                {
+                    //MessageBox.Show(strJ.Count.ToString());
+                    //ht.Add(col.Name, col.Value);
+                    ListViewItem item = new ListViewItem();
+                    for(int i = 0; i<col.Count; i++)
+                    {
+                        item.SubItems.Add(col[i].ToString());
+                    }
+                }
             }
+                //MessageBox.Show(strJ.ToString());
 
             //for(int i = 0; i<STR.Count; i++)
             // {
@@ -115,13 +123,7 @@ namespace dotnet
             //        item.Add("name", col.Value);
             //     }
             //  }
-    
-        }
-
-        private void btn_click(object sender, EventArgs e)
-        {
-          
         }
     }
-    }
+ }
     

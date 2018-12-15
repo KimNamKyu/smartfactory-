@@ -13,7 +13,7 @@ namespace _1205
 {
     class Class1
     {
-        public static void Main()
+        public  void Main()
         {
             //JSON 읽어오기
             WebClient client = new WebClient(); // 웹 접속 객체생성
@@ -22,7 +22,7 @@ namespace _1205
             client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
             client.Encoding = Encoding.UTF8;    //한글처리
 
-            string url = "http://192.168.3.10:5000/api/Select";
+            string url = "http://192.168.0.2:5000/api/Select";
 
             Stream result = client.OpenRead(url);
 
