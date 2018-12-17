@@ -1,16 +1,16 @@
 ﻿namespace _1214
 {
-    partial class Form1
+    partial class Form2
     {
         /// <summary>
-        /// 필수 디자이너 변수입니다.
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// 사용 중인 모든 리소스를 정리합니다.
+        /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">관리되는 리소스를 삭제해야 하면 true이고, 그렇지 않으면 false입니다.</param>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,15 +20,15 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form 디자이너에서 생성한 코드
+        #region Windows Form Designer generated code
 
         /// <summary>
-        /// 디자이너 지원에 필요한 메서드입니다. 
-        /// 이 메서드의 내용을 코드 편집기로 수정하지 마세요.
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.Select = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.col1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.col2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -36,25 +36,24 @@
             this.col4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.col5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.col6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.button2 = new System.Windows.Forms.Button();
+            this.Delete = new System.Windows.Forms.Button();
+            this.Insert = new System.Windows.Forms.Button();
+            this.Update = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // Select
             // 
-            this.button1.Location = new System.Drawing.Point(12, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 39);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "호출";
-            this.button1.UseVisualStyleBackColor = true;
+            this.Select.Location = new System.Drawing.Point(12, 12);
+            this.Select.Name = "Select";
+            this.Select.Size = new System.Drawing.Size(113, 53);
+            this.Select.TabIndex = 0;
+            this.Select.Text = "호출";
+            this.Select.UseVisualStyleBackColor = true;
             // 
             // listView1
             // 
-            this.listView1.BackColor = System.Drawing.Color.Gainsboro;
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.col1,
             this.col2,
@@ -62,11 +61,11 @@
             this.col4,
             this.col5,
             this.col6});
-            this.listView1.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(123, 12);
+            this.listView1.Location = new System.Drawing.Point(131, 12);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(665, 426);
+            this.listView1.Size = new System.Drawing.Size(609, 426);
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -74,24 +73,24 @@
             // col1
             // 
             this.col1.Text = "번호";
+            this.col1.Width = 50;
             // 
             // col2
             // 
             this.col2.Text = "이름";
             this.col2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.col2.Width = 120;
+            this.col2.Width = 100;
             // 
             // col3
             // 
             this.col3.Text = "나이";
             this.col3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.col3.Width = 100;
+            this.col3.Width = 80;
             // 
             // col4
             // 
             this.col4.Text = "삭제여부";
             this.col4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.col4.Width = 80;
             // 
             // col5
             // 
@@ -105,61 +104,61 @@
             this.col6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.col6.Width = 150;
             // 
-            // button2
+            // Delete
             // 
-            this.button2.Location = new System.Drawing.Point(12, 68);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(100, 39);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "삭제";
-            this.button2.UseVisualStyleBackColor = true;
+            this.Delete.Location = new System.Drawing.Point(12, 84);
+            this.Delete.Name = "Delete";
+            this.Delete.Size = new System.Drawing.Size(113, 53);
+            this.Delete.TabIndex = 2;
+            this.Delete.Text = "삭제";
+            this.Delete.UseVisualStyleBackColor = true;
+            // 
+            // Insert
+            // 
+            this.Insert.Location = new System.Drawing.Point(12, 261);
+            this.Insert.Name = "Insert";
+            this.Insert.Size = new System.Drawing.Size(113, 53);
+            this.Insert.TabIndex = 3;
+            this.Insert.Text = "추가";
+            this.Insert.UseVisualStyleBackColor = true;
+            // 
+            // Update
+            // 
+            this.Update.Location = new System.Drawing.Point(12, 335);
+            this.Update.Name = "Update";
+            this.Update.Size = new System.Drawing.Size(113, 53);
+            this.Update.TabIndex = 4;
+            this.Update.Text = "수정";
+            this.Update.UseVisualStyleBackColor = true;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 125);
+            this.textBox1.Location = new System.Drawing.Point(12, 169);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 21);
-            this.textBox1.TabIndex = 3;
+            this.textBox1.Size = new System.Drawing.Size(113, 21);
+            this.textBox1.TabIndex = 5;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(12, 152);
+            this.textBox2.Location = new System.Drawing.Point(12, 212);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 21);
-            this.textBox2.TabIndex = 4;
+            this.textBox2.Size = new System.Drawing.Size(113, 21);
+            this.textBox2.TabIndex = 6;
             // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(12, 179);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(100, 39);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "추가";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(12, 236);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(100, 39);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "수정";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // Form1
+            // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
+            this.ClientSize = new System.Drawing.Size(752, 450);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.Update);
+            this.Controls.Add(this.Insert);
+            this.Controls.Add(this.Delete);
             this.Controls.Add(this.listView1);
-            this.Controls.Add(this.button1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Controls.Add(this.Select);
+            this.Name = "Form2";
+            this.Text = "Form2";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -167,19 +166,18 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Select;
         private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.Button Delete;
+        private System.Windows.Forms.Button Insert;
+        private System.Windows.Forms.Button Update;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.ColumnHeader col1;
         private System.Windows.Forms.ColumnHeader col2;
         private System.Windows.Forms.ColumnHeader col3;
         private System.Windows.Forms.ColumnHeader col4;
         private System.Windows.Forms.ColumnHeader col5;
         private System.Windows.Forms.ColumnHeader col6;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
     }
 }
-

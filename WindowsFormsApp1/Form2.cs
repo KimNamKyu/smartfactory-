@@ -87,7 +87,7 @@ namespace WindowsFormsApp1
 
             foreach (Hashtable ht in list)
             {
-                lv.Items.Add(new ListViewItem(new string[] { ht["m_No"].ToString(), ht["m_Name"].ToString(), ht["m_Price"].ToString(), "1" }));
+                lv.Items.Add(new ListViewItem(new string[] { ht["ml_No"].ToString(), ht["m_Name"].ToString(), ht["m_Price"].ToString(), ht["ml_Count"].ToString(),ht["ml_TotalCoutn"].ToString()}));
             }
         }
     }

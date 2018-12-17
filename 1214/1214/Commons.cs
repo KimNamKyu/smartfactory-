@@ -9,37 +9,44 @@ using System.Windows.Forms;
 
 namespace _1214
 {
-    class database
+    class Commons
     {
         private SqlConnection conn;
-        private string no;
-        private string name;
-        private string age;
-        private TextBox textBox1;
-        private TextBox textBox2;
+        private Form1 form;
 
-        public void MYsql()
+        public Commons(Form form)
         {
+            this.form = (Form1) form;
+
             conn = new SqlConnection();
             string server = "(localdb)\\ProjectsV13";
             string uid = "root";
             string password = "1234";
             string database = "Tes2";
             conn.ConnectionString = string.Format("server = {0}; uid = {1}; password = {2}; database = {3}", server, uid, password, database);
+
+            try
+            {
+                MessageBox.Show("연결 성공");
+                conn.Open();
+            }
+            catch
+            {
+                MessageBox.Show("연결 실패");
+            }
         }
 
-        public void Read(ListView listView1)
+        public void R()    //읽기
         {
             try
             {
-                conn.Open();
                 SqlCommand comm = new SqlCommand();
                 comm.CommandText = "sp_select";
                 comm.Connection = conn;
                 comm.CommandType = CommandType.StoredProcedure;
                 SqlDataReader sdr = comm.ExecuteReader();
                 //string result = "";
-                listView1.Items.Clear();    //items만 초기화
+                form.listView1.Items.Clear();    //items만 초기화
                 while (sdr.Read())
                 {
                     //컬럼 꺼내오기
@@ -51,24 +58,21 @@ namespace _1214
                         arr[i] = sdr.GetValue(i).ToString();
                     }
                     //result += "\n";
-                    listView1.Items.Add(new ListViewItem(arr));
+                    form.listView1.Items.Add(new ListViewItem(arr));
                 }
                 sdr.Close();
-                conn.Close();
             }
             catch
             {
                 MessageBox.Show("연결실패");
             }
         }
-        
-        public void CUD(string proc, bool key1, bool key2)
+
+
+        public void CUD(string proc, bool key1, bool key2, string no)  //추가(name,age)/수정(no,name,age)/삭제(no)
         {
-            name = textBox1.Text;
-            age = textBox2.Text;
             try
             {
-                conn.Open();
                 SqlCommand comm = new SqlCommand();
                 comm.CommandText = proc;
                 comm.Connection = conn;
@@ -81,17 +85,18 @@ namespace _1214
                 }
                 if (key2)
                 {
+                    string name = form.textBox1.Text;
+                    string age = form.textBox2.Text;
+
                     comm.Parameters.AddWithValue("@name", name);
                     comm.Parameters.AddWithValue("@age", age);
                 }
                 comm.ExecuteNonQuery();
-                conn.Close();
             }
             catch
             {
                 MessageBox.Show("연결 실패");
             }
         }
-        
     }
 }
