@@ -92,17 +92,25 @@ namespace _1214
             switch (type)
             {
                 case "Select":
-                    api.SelectListView("http://localhost:5000/select",listView1);
+                    api.SelectListView("http://localhost:5000/select", listView1);
                     break;
                 case "Insert":
                     ht.Add("name",textBox1.Text);
                     ht.Add("age",textBox2.Text);
                     api.Post("http://localhost:5000/insert",ht);
-                    
+                    ApiCommon("Select");
                     break;
                 case "Update":
+                    ht.Add("no", no);
+                    ht.Add("name", textBox1.Text);
+                    ht.Add("age", textBox2.Text);
+                    api.Post("http://localhost:5000/update", ht);
+                    ApiCommon("Select");
                     break;
                 case "Delete":
+                    ht.Add("no", no);
+                    api.Post("http://localhost:5000/delete", ht);
+                    ApiCommon("Select");
                     break;
                 default:
                     break;
