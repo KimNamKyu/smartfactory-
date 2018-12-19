@@ -75,7 +75,5 @@ namespace _1214
             comm.CUD("sp_update", true, true, no);
             comm.R();
         }
-
-
     }
 }
