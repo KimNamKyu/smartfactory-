@@ -12,29 +12,15 @@ namespace ConsoleApp2
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("저장 프로시저 활용");
-
-            string host = "gudi.kr";
-            string Port = "5002";
-            string user = "gdc3";
-            string pwd = "gdc3";
-            string db = "gdc3_1";
-
-            string connStr = string.Format(@"server={0}; Port={1}; user={2};password={3};database={4}", host, Port, user, pwd, db);
-            MySqlConnection conn = new MySqlConnection(connStr);
-
-            try
+            int[,] a = new int[9, 9];
+            int aa = 3;
+           //for(int i = 9; i>0; i = i - aa)
+           // {
+           //     Console.WriteLine("{0} {1} {2}",i,(i-1),(i-2));
+           // }
+           for(int i = 0; i<9; i= i+ aa)
             {
-                conn.Open();
-                Console.WriteLine("연결 성공");
-                string sql = "select ml.ml_No, m.m_Name, m.m_Price, ml.ml_Count, ml.ml_TotalCount from Menulist as ml inner join Menu as m on(ml.ml_mNo = m.m_No); ";
-                MySqlCommand comm = new MySqlCommand(sql,conn);
-                MySqlDataReader sdr = comm.ExecuteReader();
- 
-            }
-            catch 
-            {
-                Console.WriteLine("연결실패");
+                Console.WriteLine("{0} {1} {2}", i, (i - 1), (i - 2));
             }
         }
     }

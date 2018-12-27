@@ -19,6 +19,7 @@ namespace WindowsFormsApp1
     {
         private ListView lv;
         private string test;
+        Form1 f1 = new Form1(btn);
         public Form2(ListView lv,string test)
         {
             InitializeComponent();
@@ -34,7 +35,7 @@ namespace WindowsFormsApp1
             btn.Size = new Size(200, 200);
             btn.Location = new Point(0, 0);
             btn.BackColor = Color.Gainsboro;
-            btn.Text = test;
+            btn.Text = btn.Text;
             btn.Click += Btn_Click;
             Controls.Add(btn);
 
@@ -46,6 +47,9 @@ namespace WindowsFormsApp1
             btn1.Text = test;
             btn1.Click += Btn1_Click;
             Controls.Add(btn1);
+
+           
+           
         }
 
         private void Btn1_Click(object sender, EventArgs e)
@@ -87,7 +91,7 @@ namespace WindowsFormsApp1
 
             foreach (Hashtable ht in list)
             {
-                lv.Items.Add(new ListViewItem(new string[] { ht["m_No"].ToString(), ht["m_Name"].ToString(), ht["m_Price"].ToString(), "1" }));
+                lv.Items.Add(new ListViewItem(new string[] { ht["ml_No"].ToString(), ht["m_Name"].ToString(), ht["m_Price"].ToString(), ht["ml_Count"].ToString(),ht["ml_TotalCoutn"].ToString()}));
             }
         }
     }
