@@ -40,9 +40,9 @@ namespace _1205
             {
                 Hashtable ht = new Hashtable(); // Key : Value 형식으로 데이터 담을 객체 생성
                 foreach (JProperty col in row.Properties()) // JSON 속성 가져오기
-                {
-                    Console.Write("{0} :\t{1}\t", col.Name, col.Value); // Key : Value 형식으로 출력하기
-                    ht.Add(col.Name, col.Value); // Key : Value 형식으로 데이터 담기
+                {col.Name, col.Value); // Key : Value 형식으로 출력하기
+                   
+                    Console.Write("{0} :\t{1}\t",  ht.Add(col.Name, col.Value); // Key : Value 형식으로 데이터 담기
                 }
                 Console.WriteLine(); // Console 출력 보기 좋게 줄변경하기
                 list.Add(ht); // JSON 에서 LIST 로 데이터 담기
