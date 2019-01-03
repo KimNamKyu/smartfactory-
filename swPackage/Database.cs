@@ -10,32 +10,31 @@ namespace swPackage
 {
     public class Database
     {
-        private string server, uid, password, database;
+        private string ConnectionString;
 
         //DB정보를 알고있어야 할때
-        public Database(string server, string uid, string password,string database)
+        public Database(string server, string uid, string password, string database)
         {
-            this.server = server;
-            this.uid = uid;
-            this.password = password;
-            this.database = database;
+            this.ConnectionString = string.Format("server={0};uid={1};password={2};database={3};", server, uid, password, database);
         }
 
         //DB정보를 몰라도 사용하고싶을때
         public Database(Hashtable db)
         {
-            this.server = db["server"].ToString();
-            this.uid = db["uid"].ToString();
-            this.password = db["password"].ToString();
-            this.database = db["database"].ToString();
+            this.ConnectionString = string.Format("server={0};uid={1};password={2};database={3};", db["server"], db["uid"], db["password"], db["database"]);
         }
 
-        public SqlConnection Open()
+        public Database(string ConnectionString)
+        {
+            this.ConnectionString = ConnectionString;
+        }
+
+        private SqlConnection Open()
         {
             try
             {
                 SqlConnection conn = new SqlConnection();
-                conn.ConnectionString = string.Format("server = {0}; uid = {1}; password = {2}; database = {3};", server, uid, password, database);
+                conn.ConnectionString = ConnectionString;
                 conn.Open();
                 return conn;
             }
@@ -45,7 +44,7 @@ namespace swPackage
             }
         }
 
-        public Hashtable GetReader( string sql)
+        public Hashtable GetReader(string sql)
         {
             SqlConnection conn = Open();
             Hashtable resultMap = new Hashtable();
@@ -55,12 +54,12 @@ namespace swPackage
                 SqlCommand comm = new SqlCommand();
                 comm.Connection = conn;
                 comm.CommandText = sql;
-               SqlDataReader Sdr = comm.ExecuteReader();
+                SqlDataReader Sdr = comm.ExecuteReader();
 
                 while (Sdr.Read())
                 {
                     Hashtable row = new Hashtable();
-                    for(int i = 0; i< Sdr.FieldCount; i++)
+                    for (int i = 0; i < Sdr.FieldCount; i++)
                     {
                         row.Add(Sdr.GetName(i), Sdr.GetValue(i));
                     }
@@ -73,12 +72,30 @@ namespace swPackage
                 conn.Close();
                 return resultMap;
             }
-            catch 
+            catch
             {
                 resultMap.Add("MsgCode", -1);
                 resultMap.Add("Msg", "읽어 오는 중 오류 발생");
                 conn.Close();
                 return resultMap;
+            }
+        }
+
+        public bool NonQuery(string sql)
+        {
+            SqlConnection conn = Open();
+            try
+            {
+                    SqlCommand comm = new SqlCommand();
+                    comm.Connection = conn;
+                    comm.CommandText = sql;
+                    comm.ExecuteNonQuery();
+                    return true;
+            }
+            catch
+            {
+
+                return false;
             }
         }
     }

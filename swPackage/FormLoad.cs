@@ -10,16 +10,92 @@ namespace swPackage
 {
     public class FormLoad
     {
-        private Form TargetForm;
-        private string ViewType;
+        //private Form TargetForm;
+        //private string ViewType;
 
-        public FormLoad(Form TargetForm)
+        private static bool hm;     //상태값
+        private static int mx, my;  // 마우스 X, Y값
+
+        /// <summary>
+        /// 2019.01.03 Customizing 하기
+        /// </summary>
+        public static bool GetLoad(Form targetForm, string viewType)
         {
-            //MessageBox.Show("실행됨?");
-            this.TargetForm = TargetForm;
-            
-        }
+            switch (viewType)
+            {
+                case "MDI":
+                    targetForm.IsMdiContainer = true;
+                    targetForm.FormBorderStyle = FormBorderStyle.None;
+                    Panel header = new Panel();
+                    header.Size = new Size(targetForm.Width, 50);
+                    header.Dock = DockStyle.Top;
+                    header.BackColor = Color.Beige;
+                    header.Location = new Point(0, 0);
+                    
+                    // mouse 이벤트 => 상태값을 주어야 함. (상태값에 따라 동작 구분 => 전역변수 필요)
+                    header.MouseDown += (a, b) => 
+                    {
+                        hm = true;
+                        mx = Cursor.Position.X - targetForm.Left;
+                        //MessageBox.Show(mx.ToString());
+                        my = Cursor.Position.Y - targetForm.Top;
+                        //MessageBox.Show(my.ToString());
+                    };
+                    header.MouseMove += (a, b) => 
+                    {
+                        if (hm)
+                        {
+                            //마우스 위치를 알아야함. (X,Y축) => 역순
+                            targetForm.Left = Cursor.Position.X - mx;
+                            targetForm.Top = Cursor.Position.Y - my;
+                        }
+                    };
+                    header.MouseUp += (a, b) => { hm = false; };
 
+                    // 창 최대화
+                    header.MouseDoubleClick += (a, b) => 
+                    {
+                        if(targetForm.WindowState == FormWindowState.Maximized)
+                        {
+                            targetForm.WindowState = FormWindowState.Normal;
+                        }
+                        else
+                        {
+                            targetForm.WindowState = FormWindowState.Maximized;
+                        }
+                    };
+                    
+                    targetForm.Controls.Add(header);
+
+                    Label Close = new Label();
+                    Close.Size = new Size(33,30);
+                    Close.Location = new Point(targetForm.Width - 40,8);
+                    Close.Text = "X";
+                    Close.Font = new Font("굴림", 22,FontStyle.Bold);
+                    Close.Cursor = Cursors.Hand;
+                    Close.AutoSize = false;
+                    Close.Anchor = AnchorStyles.Right;
+                    //람다식! : ()함수 : 함수가 없다는 것은 익명 :: 두개의 매개변수 a, b
+                    Close.Click += (a,b) => { Application.Exit(); };
+                    header.Controls.Add(Close);
+
+                    Panel Content = new Panel();
+                    Content.Dock = DockStyle.Fill;
+                    Content.Name = "Content";
+                    Content.BackColor = Color.Blue;
+                    targetForm.Controls.Add(Content);
+                    return true;
+                case "SDI":
+                    targetForm.IsMdiContainer = false;
+                    targetForm.FormBorderStyle = FormBorderStyle.None;
+                    targetForm.Dock = DockStyle.Fill;
+                    return true;
+                default:
+                    MessageBox.Show("누구냐?");
+                    return false;
+            }
+        }
+        /*19.1.2수업
         public EventHandler GetHandler(string ViewType)
         {
             this.ViewType = ViewType;
@@ -33,23 +109,18 @@ namespace swPackage
                 case "MDI":
                     MessageBox.Show("MDI 불렀니?");
                     TargetForm.IsMdiContainer = true;
-                    TargetForm.FormBorderStyle = FormBorderStyle.FixedSingle;
-                    TargetForm.MaximizeBox = false;
-                    TargetForm.MinimizeBox = false;
-                    TargetForm.BackColor = Color.Blue;
+                    TargetForm.FormBorderStyle = FormBorderStyle.None;
+                    //커스터마이징
                     break;
                 case "SDI":
                     MessageBox.Show("SDI 불렀니?");
                     TargetForm.IsMdiContainer = false;
-                    TargetForm.FormBorderStyle = FormBorderStyle.None;
-                    TargetForm.MaximizeBox = false;
-                    TargetForm.MinimizeBox = false;
-                    TargetForm.BackColor = Color.Yellow;
                     break;
                 default:
                     MessageBox.Show("누구냐?");
                     break;
             }
         }
+        */
     }
 }

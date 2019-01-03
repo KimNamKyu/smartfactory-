@@ -22,9 +22,8 @@ namespace WindowsFormsApps
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            DBInfo dbi = new DBInfo();
-            Database db = new Database(dbi.GetDB());
-            Hashtable resultMap = db.GetReader("select * from [Notice]");
+            Database db = new Database(Test.RealDBInfo());
+            Hashtable resultMap = db.GetReader("select rNo, rName, rDesc from [Rule];");
 
             if (Convert.ToInt32(resultMap["MsgCode"]) == -1)
             {
@@ -36,7 +35,7 @@ namespace WindowsFormsApps
                 string result = "";
                 foreach (Hashtable row in resultList)
                 {
-                    result += string.Format("nNo : {0}, uName : {1}", row["nNo"], row["uName"]);
+                    result += string.Format("rNo : {0}, rName : {1}, rDesc : {2}", row["rNo"], row["rName"], row["rDesc"]);
                 }
                 MessageBox.Show(result);
             }
