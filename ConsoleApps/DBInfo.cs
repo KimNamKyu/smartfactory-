@@ -27,6 +27,7 @@ namespace ConsoleApps
             db.Add("uid",uid);
             db.Add("password",password);
             db.Add("database",database);
+
             return db;
         }
     }
