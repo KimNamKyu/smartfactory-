@@ -163,6 +163,7 @@ namespace WindowsFormsApps
             if (db.NonQuery(sql)) MessageBox.Show("수정성공");
             else MessageBox.Show("수정 실패");
         }
+
         private void ListViewDelete()
         {
             db = new Database(Test.RealDBInfo());

@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AAA210A7-AA37-4B0E-A3ED-73DF1F852439}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>PosSystem</RootNamespace>
+    <AssemblyName>PosSystem</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ClassLibrary">
+      <HintPath>..\ClassLibrary\bin\Debug\ClassLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Windows.Forms.DataVisualization.Design" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cash.Designer.cs">
+      <DependentUpon>Cash.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CHUN\Category_Insert_modal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CHUN\Category_Insert_modal.Designer.cs">
+      <DependentUpon>Category_Insert_modal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CHUN\Category_Update_delete_modal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CHUN\Category_Update_delete_modal.Designer.cs">
+      <DependentUpon>Category_Update_delete_modal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CHUN\FORM_03.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CHUN\FORM_03.Designer.cs">
+      <DependentUpon>FORM_03.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CHUN\ID_Maker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CHUN\ID_Maker.Designer.cs">
+      <DependentUpon>ID_Maker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CHUN\LOGIN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CHUN\LOGIN.Designer.cs">
+      <DependentUpon>LOGIN.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CHUN\Menu_Insert_modal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CHUN\Menu_Insert_modal.Designer.cs">
+      <DependentUpon>Menu_Insert_modal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CHUN\Menu_update_delete_modal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CHUN\Menu_update_delete_modal.Designer.cs">
+      <DependentUpon>Menu_update_delete_modal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CountView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CountView.Designer.cs">
+      <DependentUpon>CountView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Han\InsertForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Han\InsertForm.Designer.cs">
+      <DependentUpon>InsertForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Han\ManagerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Han\ManagerForm.Designer.cs">
+      <DependentUpon>ManagerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Han\MenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Han\MenuForm.Designer.cs">
+      <DependentUpon>MenuForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Han\MoneyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Han\MoneyForm.Designer.cs">
+      <DependentUpon>MoneyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Han\RankForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Han\RankForm.Designer.cs">
+      <DependentUpon>RankForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainPos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainPos.Designer.cs">
+      <DependentUpon>MainPos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
