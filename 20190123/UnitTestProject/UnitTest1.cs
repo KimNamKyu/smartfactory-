@@ -19,7 +19,6 @@ namespace UnitTestProject
             int c = (a + b);
             int d = c1.Add(a, b);
             Assert.AreEqual(c, d);    // AreEqual(예상값, 실제값)
-
         }
 
         [TestMethod]
